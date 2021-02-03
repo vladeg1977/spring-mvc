@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -14,13 +15,19 @@ public class CarService {
     Car car4 = new Car("HONDA", "FIT", 95);
     Car car5 = new Car("MAZDA", "BONGO", 150);
 
-    public List<Car> getCars() {
+    public List<Car> getCars(Integer count) {
         List<Car> cars = new ArrayList<>();
+        List<Car> carList;
         cars.add(car1);
         cars.add(car2);
         cars.add(car3);
         cars.add(car4);
         cars.add(car5);
-        return cars;
+        if (count == null) {
+           carList = cars;
+        } else {
+            carList = cars.stream().limit(count).collect(Collectors.toList());
+        }
+        return carList;
     }
 }
